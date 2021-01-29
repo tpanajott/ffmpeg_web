@@ -1,0 +1,117 @@
+{% load static %}
+<html>
+<head>
+    {% include 'base.html' %}
+    <script>
+        var job_id = {{ job.id }}
+    </script>
+    <script src="{% static 'view_job/update-status.js' %}"></script>
+    <title>FFMPEG Web - Start</title>
+</head>
+{% include 'menu.html' %}
+{% include 'show_log_modal.html' %}
+<section class="section">
+    <!-- Main container -->
+    <nav class="level">
+        <div class="container control">
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">Source</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <p class="control is-expanded">
+                            <input class="input" type="text" value="{{job.source}}" readonly>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">Destination</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <p class="control is-expanded">
+                            <input class="input" type="text" value="{{job.destination}}" readonly>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">Information</label>
+                </div>
+                <div class="field-body">
+                    <div class="field is-grouped is-grouped-multiline">
+                        <div class="control">
+                            <div class="tags has-addons">
+                                <span class="tag">Status</span>
+                                <span class="tag convert_status is-primary">-</span>
+                            </div>
+                        </div>
+                        <div class="control">
+                            <div class="tags has-addons">
+                                <span class="tag">Speed</span>
+                                <span class="tag speed is-info">-</span>
+                            </div>
+                        </div>
+                        <div class="control">
+                            <div class="tags has-addons">
+                                <span class="tag">Time Left</span>
+                                <span class="tag time_left is-info" >-</span>
+                            </div>
+                        </div>
+                        <div class="control">
+                            <div class="tags has-addons">
+                                <span class="tag">Preset</span>
+                                <span class="tag is-dark">{{ job.preset.name }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">Progress</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <p class="control is-expanded has-icons-left">
+                            <span id="progress"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">Custom Arguments</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <textarea class="textarea" id="custom_args" rows="2" placeholder="Custom Arguments" readonly>{{job.custom_arguments}}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">Actions</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-info" onclick="show_log();">Show Log</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+</html>

@@ -1,0 +1,70 @@
+{% load static %}
+<html>
+<head>
+    {% include 'base.html' %}
+    <script src="{% static 'index/update-status.js' %}"></script>
+    <title>FFMPEG Web - Start</title>
+</head>
+    {% include 'menu.html' %}
+    <section class="section">
+        <div class="container" style="padding-top: 3rem;">
+            <!-- Main container -->
+            <nav class="level">
+                <!-- Left side -->
+                <div class="level-left">
+                    <div class="level-item">
+                        <p class="subtitle is-3">
+                            Current jobs
+                        </p>
+                    </div>
+                </div>
+            </nav>
+            <nav class="level">
+                <table class="table is-fullwidth is-hoverable">
+                    <thead>
+                        <tr>
+                            <th>Source</th>
+                            <th>Information</th>
+                            {% comment %} <th>Destination</th> {% endcomment %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for job in jobs %}
+                            <tr>
+                                <td><a href="/view_job/{{ job.id }}">{{ job.source_file_name }}</a></td>
+                                <td data-id="{{ job.id }}">
+                                    <div class="field is-grouped is-grouped-multiline">
+                                        <div class="control">
+                                            <div class="tags has-addons">
+                                                <span class="tag">Status</span>
+                                                <span class="tag convert_status is-primary">-</span>
+                                            </div>
+                                        </div>
+                                        <div class="control">
+                                            <div class="tags has-addons">
+                                                <span class="tag">Speed</span>
+                                                <span class="tag speed is-info">-</span>
+                                            </div>
+                                        </div>
+                                        <div class="control">
+                                            <div class="tags has-addons">
+                                                <span class="tag">Time Left</span>
+                                                <span class="tag time_left is-info" >-</span>
+                                            </div>
+                                        </div>
+                                        <div class="control">
+                                            <div class="tags has-addons">
+                                                <span class="tag">Preset</span>
+                                                <span class="tag is-dark">{{ job.preset.name }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </nav>
+        </div>
+    </div>
+</html>

@@ -1,0 +1,92 @@
+{% load static %}
+<html>
+<head>
+    {% include 'base.html' %}
+    <script src="{% static 'new_job/file-list.js' %}"></script>
+    <title>FFMPEG Web - Start</title>
+</head>
+{% include 'menu.html' %}
+<div class="container" style="padding-top: 3rem;">
+    <!-- Main container -->
+    <nav class="level">
+        <!-- Left side -->
+        <div class="level-left">
+            <div class="level-item">
+                <p class="subtitle is-3">
+                    New Job
+                </p>
+            </div>
+        </div>
+    </nav>
+    {% include 'new_job_select_source_modal.html' %}
+    <nav class="level">
+        <div class="container control">
+            <form method="POST" action="/new_job">
+                {% csrf_token %}
+                <label class="label">Source file</label>
+                <div class="field has-addons">
+                    <div class="control has-icons-left is-expanded">
+                        <input class="input" type="text" id="source-file-input" name="source" placeholder="Source file...">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-file"></i>
+                        </span>
+                    </div>
+                    <div class="control">
+                        <a class="button is-info" onclick="$('#source-select-modal').addClass('is-active');">
+                            Select File
+                        </a>
+                    </div>
+                </div>
+                
+                <label class="label">Destination File Name</label>
+                <div class="field">
+                    <div class="control is-expanded has-icons-left">
+                        <input class="input" type="text" id="destination-file-name" name="destination" placeholder="Destination File Name">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-save"></i>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="field">
+                    <label class="label">Preset</label>
+                    <div class="control is-expanded">
+                        <div class="select">
+                            <select name="preset">
+                                {% for preset in presets %}
+                                <option value="{{ preset.id }}">{{ preset.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="field">
+                    <label class="label">Custom FFMPEG Options</label>
+                    <div class="control">
+                        <textarea class="textarea" placeholder="Custom arguments..." name="custom_arguments"></textarea>
+                    </div>
+                </div>
+                
+                <div class="field">
+                    <div class="control">
+                        <label class="checkbox">
+                            <input type="checkbox" name="overwrite_destination">
+                            Overwrite destination file
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-link">Submit</button>
+                    </div>
+                    <div class="control">
+                        <a class="button is-link is-light" href="/">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </nav>
+</div>
+</html>

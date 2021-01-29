@@ -1,0 +1,19 @@
+<div class="modal" id="source-select-modal">
+    <div class="modal-background" onclick="$('#source-select-modal').removeClass('is-active');"></div>
+    <div class="modal-content">
+        <div class="box">
+            <nav class="panel" id="source-select-items">
+                <p class="panel-heading">
+                    Select Source File
+                </p>
+                <a class="panel-block">
+                    {% comment %} <span class="panel-icon">
+                        <i class="fas fa-book" aria-hidden="true"></i>
+                    </span>
+                    bulma {% endcomment %}
+                </a>
+            </nav>
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close" onclick="$('#source-select-modal').removeClass('is-active');"></button>
+</div>

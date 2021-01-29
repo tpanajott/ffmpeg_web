@@ -1,0 +1,25 @@
+<script>
+    function show_log() {
+        $.getJSON("/job_status/"+job_id, function(job) {
+            $('#log_output').text(job.log)
+        })
+
+        $('#show-log-modal').addClass('is-active')
+    }
+</script>
+
+<div class="modal" id="show-log-modal">
+    <div class="modal-background" onclick="$('#show-log-modal').removeClass('is-active');"></div>
+    <div class="modal-content">
+        <div class="field is-horizontal">
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        <textarea class="textarea" id="log_output" rows="15" placeholder="Custom Arguments" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close" onclick="$('#show-log-modal').removeClass('is-active');"></button>
+</div>
