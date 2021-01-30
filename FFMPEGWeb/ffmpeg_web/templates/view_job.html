@@ -107,6 +107,8 @@
                     <div class="field">
                         <div class="control">
                             <button class="button is-info" onclick="show_log();">Show Log</button>
+                            <a href="/rerun_job/{{ job.id }}" class="button is-primary">Rerun</a>
+                            <a href="/cancel_job/{{ job.id }}" class="button is-danger">Stop Job</a>
                         </div>
                     </div>
                 </div>

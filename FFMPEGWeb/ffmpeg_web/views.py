@@ -83,6 +83,14 @@ def job_log(request, id):
         return JsonResponse({
             "log": job.log
         })
+    
+def rerun_job(request, id):
+    Jobs().rerun_job(id)
+    return redirect('/')
+
+def cancel_job(request, id):
+    Jobs().cancel_job(id)
+    return redirect('/')
 
 def media_files(request):
     return_dict = {'files': [], 'directories': []}

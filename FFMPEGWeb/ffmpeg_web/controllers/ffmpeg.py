@@ -101,7 +101,7 @@ class FFMPEG_Job:
         self._start_thread()
     
     def _start_thread(self):
-        if self._thread == None:
+        if self._thread == None or not self._thread.is_alive():
             self._thread = threading.Thread(target=self._run_ffmpeg)
             self._thread.setDaemon(True)
             self._thread.start()
@@ -165,3 +165,17 @@ class FFMPEG_Job:
             if self._thread.is_alive():
                 return True
         return False
+    
+    def rerun(self):
+        if self.status != "running":
+            if "-y" not in self.custom_arguments:
+                self.custom_arguments += "-y"
+            self.percentage = 0
+            self._start_thread()
+
+    def cancel(self):
+        if self._thread:
+            if self._thread.is_alive():
+                if self._ffmpeg_proc:
+                    self._ffmpeg_proc.terminate()
+                self.status = "canceled"
