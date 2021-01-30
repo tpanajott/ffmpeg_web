@@ -71,12 +71,18 @@ def job_status_specific(request, id):
             json_data['preset'] = job.preset.name
             json_data['custom_arguments'] =job.custom_arguments
             json_data['error_text']= job.error_text
-            json_data['log'] = job.log
             json_data['status'] = job.status
             json_data['percentage'] = job.percentage
             json_data['time_left'] = job.time_left
             json_data['speed'] = job.speed
     return JsonResponse(json_data)
+
+def job_log(request, id):
+    job = ConvertJob.objects.get(id=id)
+    if job:
+        return JsonResponse({
+            "log": job.log
+        })
 
 def media_files(request):
     return_dict = {'files': [], 'directories': []}

@@ -1,6 +1,6 @@
 <script>
     function show_log() {
-        $.getJSON("/job_status/"+job_id, function(job) {
+        $.getJSON("/job_log/"+job_id, function(job) {
             $('#log_output').text(job.log)
         })
 
@@ -10,12 +10,12 @@
 
 <div class="modal" id="show-log-modal">
     <div class="modal-background" onclick="$('#show-log-modal').removeClass('is-active');"></div>
-    <div class="modal-content">
+    <div class="modal-content" style="width: 100rem;">
         <div class="field is-horizontal">
             <div class="field-body">
                 <div class="field">
                     <div class="control">
-                        <textarea class="textarea" id="log_output" rows="15" placeholder="Custom Arguments" readonly></textarea>
+                        <textarea class="textarea" id="log_output" rows="30" placeholder="Custom Arguments" readonly></textarea>
                     </div>
                 </div>
             </div>

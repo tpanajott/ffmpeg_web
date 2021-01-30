@@ -22,6 +22,7 @@ urlpatterns = [
     path('view_job/<int:id>', views.view_job, name='view_job'),
     path('job_status', views.job_status, name='job_status'),
     path('job_status/<int:id>', views.job_status_specific, name='job_status_specific'),
+    path('job_log/<int:id>', views.job_log, name='job_log_specific'),
     path('media_files', views.media_files, name='media_files'),
     path('', views.index, name='index')
 ]
