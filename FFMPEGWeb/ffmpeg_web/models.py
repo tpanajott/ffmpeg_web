@@ -15,10 +15,10 @@ class ConvertJob(models.Model):
     custom_arguments = models.TextField()
     log = models.TextField()
     status = models.CharField(max_length=50)
-    percentage = models.IntegerField(default=0)
+    percentage = models.FloatField(default=0)
     error_text = models.TextField()
     time_left = models.CharField(max_length=50)
-    speed = models.IntegerField(default=0)
+    speed = models.FloatField(default=0)
     total_length_seconds = models.IntegerField(default=0)
 
     def source_file_name(self):
