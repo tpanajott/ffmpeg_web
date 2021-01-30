@@ -37,4 +37,4 @@ function update_progress(id) {
     })
 }
 update_progress(job_id)
-setInterval(update_progress, 1000)
+setInterval(update_progress, 2500)
