@@ -13,7 +13,6 @@ class ConvertJob(models.Model):
     destination = models.CharField(max_length=1000)
     preset = models.ForeignKey(Preset, on_delete=models.CASCADE)
     custom_arguments = models.TextField()
-    log = models.TextField()
     status = models.CharField(max_length=50)
     percentage = models.FloatField(default=0)
     error_text = models.TextField()
@@ -23,3 +22,6 @@ class ConvertJob(models.Model):
 
     def source_file_name(self):
         return os.path.basename(self.source)
+    
+    def log_location(self):
+        return self.destination + ".ffmpeg.log"

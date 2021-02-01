@@ -31,4 +31,4 @@ function update_progress() {
     })
 }
 update_progress()
-setInterval(update_progress, 2500)
+setInterval(update_progress, 1000)

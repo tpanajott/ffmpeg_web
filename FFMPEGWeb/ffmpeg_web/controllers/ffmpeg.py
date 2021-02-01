@@ -80,12 +80,8 @@ class FFMPEG_Job:
         
     @property
     def log(self):
-        return self._job_model.log
-    
-    @log.setter
-    def log(self, current_log):
-        self._job_model.log = current_log
-        self._job_model.save()
+        with open(self._job_model.log_location(), 'r') as log:
+            return log.read()
     
     @property
     def source_file_name(self):
@@ -113,7 +109,7 @@ class FFMPEG_Job:
             command = shlex.split(F"ffmpeg -i '{self.source}'  {preset_arguments} {self.custom_arguments} '{self.destination}'")
             if os.path.isfile(self.destination) and "-y" not in command:
                 self.status = "failed"
-                self.log += "Destination file exists"
+                self._append_to_log("Destination file exists")
                 return None
             self._ffmpeg_proc = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
 
@@ -144,7 +140,7 @@ class FFMPEG_Job:
                             print(str_timestamp)
                             print(status_line)
                             print("----------------------")
-                self.log += status_line
+                self._append_to_log(status_line)
             
             stdout, stderr = self._ffmpeg_proc.communicate()
             if self._ffmpeg_proc.returncode == 0:
@@ -157,7 +153,7 @@ class FFMPEG_Job:
                 print(stderr)
         else:
             self.status = "failed"
-            self.log += F"Source file '{self.source}' does not exist!"
+            self._append_to_log(F"Source file '{self.source}' does not exist!")
         
     def is_actually_running(self):
         """Check if the process is actually running"""
@@ -179,3 +175,8 @@ class FFMPEG_Job:
                 if self._ffmpeg_proc:
                     self._ffmpeg_proc.terminate()
                 self.status = "canceled"
+                os.remove(self._job_model.destination)
+    
+    def _append_to_log(self, new_line):
+        with open(self._job_model.log_location(), 'a') as log:
+            log.write(new_line)

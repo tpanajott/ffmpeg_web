@@ -51,7 +51,6 @@ def job_status(request):
             'preset': job.preset.name,
             'custom_arguments': job.custom_arguments,
             'error_text': job.error_text,
-            'log': job.log,
             'status': job.status,
             'percentage': job.percentage,
             'time_left': job.time_left,
@@ -80,8 +79,11 @@ def job_status_specific(request, id):
 def job_log(request, id):
     job = ConvertJob.objects.get(id=id)
     if job:
+        log = ""
+        with open(job.log_location(), 'r') as log_handle:
+            log = log_handle.read()
         return JsonResponse({
-            "log": job.log
+            "log": log
         })
     
 def rerun_job(request, id):
